@@ -1,11 +1,10 @@
 package com.dct.web.controller;
 
+import com.dct.client.DCTClient;
+import com.dct.client.impl.DCTClientImpl;
 import com.dct.model.entities.TriangleData;
 import com.dct.model.entities.TriangleResult;
 import com.dct.model.entities.VersionInfo;
-import com.dct.service.TriangleService;
-import com.dct.service.impl.TriangleServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,12 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class DCTAppController {
-    TriangleService service = new TriangleServiceImpl();
-
-    /*@Autowired
-    public DCTAppController(TriangleService service) {
-        this.service = service;
-    }*/
+    DCTClient client = new DCTClientImpl();
 
     @RequestMapping(value="/", method = RequestMethod.GET)
     public ModelAndView getHome() {
@@ -30,21 +24,14 @@ public class DCTAppController {
     @RequestMapping(value="/service/version", method = RequestMethod.GET)
     public @ResponseBody
     VersionInfo getVersion() {
-        VersionInfo version = service.getVersion();
+        VersionInfo version = client.getVersionInfo();
         return version;
     }
 
     @RequestMapping(value="/service/checkTriangle", method = RequestMethod.POST, headers = {"content-type=application/x-www-form-urlencoded"})
     public @ResponseBody
     TriangleResult triangleCheck(@ModelAttribute TriangleData request) {
-
-        boolean checkResult = false;
-        try {
-            checkResult = service.checkTriangle(request);
-        } catch (IllegalArgumentException e) {
-
-        }
-        TriangleResult result = new TriangleResult(checkResult);
+        TriangleResult result = client.checkTriangle(request);
         return result;
     }
 }

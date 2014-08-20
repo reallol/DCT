@@ -5,6 +5,7 @@ import com.dct.client.DCTClient;
 import com.dct.model.entities.TriangleData;
 import com.dct.model.entities.TriangleResult;
 import com.dct.model.entities.VersionInfo;
+import com.dct.model.exceptions.DCTClientException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
 import org.slf4j.Logger;
@@ -17,9 +18,18 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 
+/**
+ * Implementation for DCTClient.
+ * Extends BasicClient.
+ */
 public class DCTClientImpl extends BasicClient implements DCTClient {
     private static final Logger logger = LoggerFactory.getLogger(DCTClientImpl.class);
 
+    /**
+     * Method creates connection and tries to send GET request to the endpoint URL.
+     * @return Application version information
+     * @see com.dct.client.DCTClient
+     */
     @Override
     public VersionInfo getVersionInfo() {
         ObjectMapper mapper = new ObjectMapper();
@@ -30,7 +40,7 @@ public class DCTClientImpl extends BasicClient implements DCTClient {
             conn.setRequestProperty("Accept", "application/json");
             if (conn.getResponseCode() != 200) {
                 logger.error("GET request failed with HTTP error code = " + conn.getResponseCode());
-                throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
+                throw new DCTClientException("Failed : HTTP error code : " + conn.getResponseCode());
             }
             BufferedReader br = new BufferedReader(new InputStreamReader(
                     (conn.getInputStream())));
@@ -39,17 +49,25 @@ public class DCTClientImpl extends BasicClient implements DCTClient {
                 logger.debug("GET result: " + output);
                 version = mapper.readValue(output, VersionInfo.class);
             }
-            conn.disconnect();
-        } catch (ProtocolException e) {
-            e.printStackTrace();
         } catch (IOException e) {
+            logger.error("Error reading responce");
             e.printStackTrace();
+        } catch (DCTClientException e) {
+            e.printStackTrace();
+        } finally {
+            conn.disconnect();
         }
         return version;
     }
 
+    /**
+     * Method creates connection to endpoint service and sends POST request to check if triangle is valid.
+     * @param data TriangleData with all three sides specified
+     * @return TriangleResult that is "YES" if triangle is valid and "NO" otherwise
+     * @see com.dct.client.DCTClient
+     */
     @Override
-    public TriangleResult checkTriangle(TriangleData data) throws IllegalArgumentException {
+    public TriangleResult checkTriangle(TriangleData data) {
         ObjectMapper mapper = new ObjectMapper();
         HttpURLConnection conn = createConnection(PATH_TRIANGLE);
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
@@ -69,7 +87,7 @@ public class DCTClientImpl extends BasicClient implements DCTClient {
                 logger.debug("Bad request arguments");
             } else if (conn.getResponseCode() != 200) {
                 logger.error("POST request failed with HTTP error code = " + conn.getResponseCode());
-                throw new RuntimeException("Failed : HTTP error code : "
+                throw new DCTClientException("Failed : HTTP error code : "
                         + conn.getResponseCode());
             } else {
                 BufferedReader br = new BufferedReader(new InputStreamReader(
@@ -81,9 +99,13 @@ public class DCTClientImpl extends BasicClient implements DCTClient {
                     triangleResult = mapper.readValue(output, TriangleResult.class);
                 }
             }
-            conn.disconnect();
         } catch (IOException e) {
+            logger.error("Error reading responce");
             e.printStackTrace();
+        } catch (DCTClientException e) {
+            e.printStackTrace();
+        } finally {
+            conn.disconnect();
         }
 
         return triangleResult;

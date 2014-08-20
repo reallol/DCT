@@ -8,48 +8,82 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-/*import org.springframework.stereotype.Service;*/
 
-/*@Service*/
+/**
+ * REST service for requests mapping.
+ * It also implements TriangleService methods.
+ */
 @Path("/service")
+@Produces("application/json")
 public class TriangleServiceImpl implements TriangleService {
 
     private static final Logger logger = LoggerFactory.getLogger(TriangleServiceImpl.class);
 
+    /**
+     * Default constructor
+     */
     public TriangleServiceImpl() {};
 
+    /**
+     * GET request mapping method.
+     * Uses TriangleService method implementation.
+     * @return
+     */
     @GET
     @Path("/version")
     @Produces("application/json")
     public Response getVersionInfo() {
         logger.debug("GET request handler");
         VersionInfo version = getVersion();
-        return Response.status(200).entity(version).build();
+        return Response.status(Response.Status.OK).entity(version).build();
     }
 
-    @Override
-    public VersionInfo getVersion() {
-        VersionInfo version = new VersionInfo(getClass().getPackage().getImplementationVersion());
-        return version;
-    }
-
+    /**
+     * POST request mapping.
+     * Uses TriangleService method implementation.
+     * @param request TriangleData with all three sides specified
+     * @return
+     */
     @POST
     @Path("/checkTriangle")
     @Consumes("application/json")
     @Produces("application/json")
     public Response validateTriangle(TriangleData request) {
         logger.debug("POST request handler");
-        boolean checkResult;
+        boolean checkResult = false;
+        TriangleResult result;
         try {
             checkResult = checkTriangle(request);
         } catch (IllegalArgumentException e) {
-            return Response.status(400).build();
+            logger.error("Check arguments for request");
         }
-        TriangleResult result = new TriangleResult(checkResult);
-        return Response.status(200).entity(result).build();
+
+        result = new TriangleResult(checkResult);
+        return Response.status(Response.Status.OK).entity(result).build();
     }
 
+    /**
+     * TriangleService method implementation.
+     * Method gets application version from maven artifact.
+     * @return
+     * @see com.dct.service.TriangleService
+     */
+    @Override
+    public VersionInfo getVersion() {
+        VersionInfo version = new VersionInfo(getClass().getPackage().getImplementationVersion());
+        return version;
+    }
+
+    /**
+     * TriangleService method implementation.
+     * Checks if triangle with sides specified exists.
+     * @param request TriangleData with all three sides specified
+     * @return
+     * @throws IllegalArgumentException
+     * @see com.dct.service.TriangleService
+     */
     @Override
     public boolean checkTriangle(TriangleData request) throws IllegalArgumentException {
         boolean exists = false;

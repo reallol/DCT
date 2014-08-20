@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.dct</groupId>
 		<artifactId>parent</artifactId>
-		<version>${application.version}</version>
+		<version>1.0-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>service-client</artifactId>
@@ -15,7 +15,7 @@
         <dependency>
             <groupId>com.dct</groupId>
             <artifactId>model</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${application.version}</version>
         </dependency>
 
         <dependency>
@@ -25,17 +25,14 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>${logback.version}</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
-            <version>${logback.version}</version>
         </dependency>
     </dependencies>
 

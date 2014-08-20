@@ -26,7 +26,7 @@
         <httpcore.version>4.3.2</httpcore.version>
         <httpclient.version>4.3.5</httpclient.version>
         <javax.servlet.version>3.0.1</javax.servlet.version>
-        <spring.version>3.0.5.RELEASE</spring.version>
+        <spring.version>3.2.3.RELEASE</spring.version>
         <jersey.version>1.9</jersey.version>
         <org.apache.httpcomponents>4.1.2</org.apache.httpcomponents>
         <guava.version>17.0</guava.version>
@@ -104,17 +104,12 @@
                 <version>${spring.version}</version>
             </dependency>
 
-            <!-- <dependency>
-                 <groupId>com.sun.jersey.jersey-test-framework</groupId>
-                 <artifactId>jersey-test-framework-core</artifactId>
-                 <version>${jersey.version}</version>
-                 <scope>test</scope>
-             </dependency>
-             <dependency>
-                 <groupId>com.sun.jersey.jersey-test-framework</groupId>
-                 <artifactId>jersey-test-framework-external</artifactId>
-                 <version>${jersey.version}</version>
-             </dependency>-->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${spring.version}</version>
+                <scope>test</scope>
+            </dependency>
 
             <dependency>
                 <groupId>junit</groupId>
@@ -138,15 +133,9 @@
 
             <dependency>
                 <groupId>org.hamcrest</groupId>
-                <artifactId>hamcrest-core</artifactId>
+                <artifactId>hamcrest-all</artifactId>
                 <version>${org.hamcrest.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.hamcrest</groupId>
-                <artifactId>hamcrest-library</artifactId>
-                <version>${org.hamcrest.version}</version>
-            </dependency>
-
 
         </dependencies>
 	</dependencyManagement>

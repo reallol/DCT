@@ -32,7 +32,7 @@ public class DCTAppController {
         return version;
     }
 
-    @RequestMapping(value="/service/checkTriangle", method = RequestMethod.POST, headers = {"content-type=application/x-www-form-urlencoded"})
+    @RequestMapping(value="/service/checkTriangle", method = RequestMethod.POST)
     public @ResponseBody TriangleResult triangleCheck(@ModelAttribute TriangleData request) {
         TriangleResult result = null;
         try {

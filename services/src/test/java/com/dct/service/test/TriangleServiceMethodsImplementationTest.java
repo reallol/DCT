@@ -1,4 +1,4 @@
-package com.dct.test.service;
+package com.dct.service.test;
 
 import com.dct.model.entities.TriangleData;
 import com.dct.model.entities.VersionInfo;

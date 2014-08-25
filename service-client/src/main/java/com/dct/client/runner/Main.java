@@ -14,6 +14,7 @@ public class Main {
             System.exit(0);
         }
         DCTClientImpl client = new DCTClientImpl();
+        client.setRemoteEndpoint();
         logger.info("GET request result from service: " + client.getVersionInfo().toString());
 
         Double a = Double.parseDouble(args[0]);

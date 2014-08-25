@@ -1,5 +1,6 @@
 package com.dct.client.impl;
 
+import com.dct.client.ApplicationProperties;
 import com.dct.client.BasicClient;
 import com.dct.client.DCTClient;
 import com.dct.model.entities.TriangleData;
@@ -16,7 +17,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.ProtocolException;
 
 /**
  * Implementation for DCTClient.
@@ -109,5 +109,19 @@ public class DCTClientImpl extends BasicClient implements DCTClient {
         }
 
         return triangleResult;
+    }
+
+    /**
+     * Method implementation for setting endpoint URL to local
+     */
+    public void setLocalEndpoint() {
+        this.BASE_URI = ApplicationProperties.getLocalBaseURL();
+    }
+
+    /**
+     * Method implementation for setting endpoint URL to remote
+     */
+    public void setRemoteEndpoint() {
+        this.BASE_URI = ApplicationProperties.getRemoteBaseURL();
     }
 }

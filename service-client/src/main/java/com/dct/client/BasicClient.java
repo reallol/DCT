@@ -10,7 +10,7 @@ import java.net.URL;
  * Those include base URL, paths and connection creation.
  */
 public class BasicClient {
-    public static final String BASE_URI = ApplicationProperties.getBaseURL();
+    public static String BASE_URI = ApplicationProperties.getLocalBaseURL();
     public static final String PATH_VERSION = ApplicationProperties.getVersionPath();
     public static final String PATH_TRIANGLE = ApplicationProperties.getCheckTrianglePath();
 

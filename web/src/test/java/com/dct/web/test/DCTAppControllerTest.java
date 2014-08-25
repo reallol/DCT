@@ -1,3 +1,5 @@
+package com.dct.web.test;
+
 import com.dct.client.DCTClient;
 import com.dct.model.entities.TriangleData;
 import com.dct.model.entities.TriangleResult;
@@ -5,6 +7,7 @@ import com.dct.model.entities.VersionInfo;
 import com.dct.web.controller.DCTAppController;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -26,6 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:test-dispatcher-servlet.xml"})
 @WebAppConfiguration
+@Category(DCTAppIntegrationTest.class)
 public class DCTAppControllerTest {
 
     private MockMvc mockMvc;

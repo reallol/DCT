@@ -22,11 +22,19 @@ public class ApplicationProperties {
     }
 
     /**
-     * Gets basic URL
+     * Gets local basic URL
      * @return base.url property value
      */
-    public static String getBaseURL() {
-        return properties.getProperty("base.url");
+    public static String getLocalBaseURL() {
+        return properties.getProperty("local.base.url");
+    }
+
+    /**
+     * Gets remote basic URL
+     * @return base.url property value
+     */
+    public static String getRemoteBaseURL() {
+        return properties.getProperty("remote.base.url");
     }
 
     /**

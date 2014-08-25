@@ -24,4 +24,14 @@ public interface DCTClient {
      * @throws DCTClientException
      */
     TriangleResult checkTriangle(TriangleData data) throws DCTClientException;
+
+    /**
+     * Method for setting endpoint URL to local
+     */
+    void setLocalEndpoint();
+
+    /**
+     * Method for setting endpoint URL to remote
+     */
+    void setRemoteEndpoint();
 }

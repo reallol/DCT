@@ -1,4 +1,4 @@
-package com.dct.test.service;
+package com.dct.service.test;
 
 import javax.ws.rs.core.Response;
 
@@ -10,7 +10,6 @@ import org.junit.Test;
 import java.io.IOException;
 
 public class TriangleServiceImplResponcesTest {
-
     TriangleServiceImpl service;
 
     @Before

@@ -1,13 +1,8 @@
 package com.dct.service.test;
 
-import com.dct.client.DCTClient;
-import com.dct.client.impl.DCTClientImpl;
 import com.dct.model.entities.TriangleData;
-import com.dct.service.test.TriangleIntegrationTest;
 import com.dct.model.entities.TriangleResult;
 import com.dct.model.entities.VersionInfo;
-import org.jboss.resteasy.client.ClientRequest;
-import org.jboss.resteasy.client.ClientResponse;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;

@@ -7,7 +7,7 @@
 
     <context-param>
         <param-name>resteasy.resources</param-name>
-        <param-value>com.dct.service.impl.TriangleServiceImpl</param-value>
+        <param-value>com.dct.service.ws.TriangleWS</param-value>
     </context-param>
 
     <listener>
